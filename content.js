@@ -70,6 +70,27 @@ document.addEventListener('mouseup', (e) => {
     }
 });
 
+
+    const search = document.createElement('search');
+    const form = document.createElement('form');
+    const input = document.createElement('input');
+    // input.value = "yes"
+    form.appendChild(input);
+    search.appendChild(form);
+
+    const wrapper = document.createElement("div");
+    wrapper.id = "wrapper";
+    const smollbutton = document.createElement("button");
+    smollbutton.fontSize = "5px";
+    smollbutton.textContent = ">"
+
+    smollbutton.addEventListener("click", async () => {
+
+        console.log("smoll button pressed");
+    });
+
+
+
 // When button is clicked → show translation popup
 button.addEventListener('click', async () => {
     const selectedText = window.getSelection().toString().trim();
@@ -90,16 +111,22 @@ button.addEventListener('click', async () => {
         container.appendChild(node.cloneNode(true)); // safe clone
     }
 
-    // Append the container to the popup
-    popup.replaceChildren(container);
-    // popup.appendChild(container);
+
+   
+    wrapper.replaceChildren(search,smollbutton,container);
+    popup.append(wrapper);
     shadow.appendChild(popup);
+
+    // Append the container to the popup
+    // popup.replaceChildren(container);
+
+    // shadow.appendChild(popup);
 
     // Position the popup near the button
     // const rect = button.getBoundingClientRect();
 
     // position near the selected text
-    const selection = window.getSelection(); 
+    const selection = window.getSelection();
     const range = selection.getRangeAt(0);
     const rect = range.getBoundingClientRect();
 

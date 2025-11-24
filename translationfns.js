@@ -30,6 +30,8 @@ async function WikitionaryHtmlFn(text) {
 
         // return data["query"]["pages"] || "no avalible data"
         const extract = findValueByKey(data, "extract");
+        input.value = findValueByKey(data,"title") ;
+        // console.log(data);
         const parser = new DOMParser();
         const doc = parser.parseFromString(extract, 'text/html');
         const container = document.createElement('div');
