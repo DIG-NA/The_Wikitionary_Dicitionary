@@ -74,21 +74,23 @@ document.addEventListener('mouseup', (e) => {
     const search = document.createElement('search');
     const form = document.createElement('form');
     const input = document.createElement('input');
-    // input.value = "yes"
+    input.style.display = "inline-block";
     form.appendChild(input);
     search.appendChild(form);
 
     const wrapper = document.createElement("div");
-    wrapper.id = "wrapper";
+    wrapper.style.display = "flex";
+    wrapper.style.flexDirection = "row";
     const smollbutton = document.createElement("button");
     smollbutton.fontSize = "5px";
     smollbutton.textContent = ">"
 
     smollbutton.addEventListener("click", async () => {
 
-        console.log("smoll button pressed");
+    const htmlString = await tryfun(input.value);
+    parsingsafely(htmlString);
+    console.log("smoll button pressed");
     });
-
 
 
 // When button is clicked → show translation popup
@@ -96,31 +98,8 @@ button.addEventListener('click', async () => {
     const selectedText = window.getSelection().toString().trim();
     if (!selectedText) return;
 
-    // popup.innerHTML = await tryfun(selectedText);
-    // // console.log(popup.innerHTML);
-    // shadow.appendChild(popup);
-
     const htmlString = await tryfun(selectedText);
-
-    // Parse the HTML safely
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(htmlString, 'text/html');
-
-    const container = document.createElement('div');
-    for (const node of doc.body.childNodes) {
-        container.appendChild(node.cloneNode(true)); // safe clone
-    }
-
-
-   
-    wrapper.replaceChildren(search,smollbutton,container);
-    popup.append(wrapper);
-    shadow.appendChild(popup);
-
-    // Append the container to the popup
-    // popup.replaceChildren(container);
-
-    // shadow.appendChild(popup);
+    parsingsafely(htmlString);
 
     // Position the popup near the button
     // const rect = button.getBoundingClientRect();
@@ -138,3 +117,21 @@ button.addEventListener('click', async () => {
 
 });
 
+
+async function parsingsafely (htmlString) {
+
+      // Parse the HTML safely
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlString, 'text/html');
+
+    const container = document.createElement('div');
+    for (const node of doc.body.childNodes) {
+        container.appendChild(node.cloneNode(true)); // safe clone
+    }
+
+    // wrapper.replaceChildren(search,smollbutton,container);
+    wrapper.replaceChildren(search,smollbutton);
+    popup.replaceChildren(wrapper,container);
+    shadow.appendChild(popup);
+
+}
