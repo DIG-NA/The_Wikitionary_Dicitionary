@@ -71,19 +71,72 @@ document.addEventListener('mouseup', (e) => {
 });
 
 
-    const search = document.createElement('search');
-    const form = document.createElement('form');
-    const input = document.createElement('input');
-    input.style.display = "inline-block";
-    form.appendChild(input);
-    search.appendChild(form);
+    // const search = document.createElement('search');
+    // const form = document.createElement('form');
+    // const input = document.createElement('input');
+    // input.style.display = "inline-block";
+    // form.appendChild(input);
+    // search.appendChild(form);
 
-    const wrapper = document.createElement("div");
-    wrapper.style.display = "flex";
-    wrapper.style.flexDirection = "row";
-    const smollbutton = document.createElement("button");
-    smollbutton.fontSize = "5px";
-    smollbutton.textContent = ">"
+    // const wrapper = document.createElement("div");
+    // wrapper.style.display = "flex";
+    // wrapper.style.flexDirection = "row";
+    // const smollbutton = document.createElement("button");
+    // smollbutton.fontSize = "5px";
+    // smollbutton.textContent = ">"
+
+    // smollbutton.addEventListener("click", async () => {
+
+    // const htmlString = await tryfun(input.value);
+    // parsingsafely(htmlString);
+    // console.log("smoll button pressed");
+    // });
+
+    // Create the search container
+const search = document.createElement('search');
+
+const form = document.createElement('form');
+form.style.margin = "0"; // avoid default browser margin
+
+const input = document.createElement('input');
+Object.assign(input.style, {
+    display: "inline-block",
+    padding: "6px 10px",
+    borderRadius: "6px",
+    border: "1px solid rgba(255,255,255,0.15)",
+    background: "#1a1a1a",
+    color: "white",
+    flex: "1"
+});
+input.placeholder = "Search Wiktionary…";
+
+form.appendChild(input);
+search.appendChild(form);
+
+// Create a wrapper that holds search + small button horizontally
+const wrapper = document.createElement("div");
+Object.assign(wrapper.style, {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    gap: "8px",
+    width: "100%",
+    marginBottom: "12px"   // spacing from translation content
+});
+
+// Create the small button
+const smollbutton = document.createElement("button");
+Object.assign(smollbutton.style, {
+    padding: "6px 10px",
+    borderRadius: "6px",
+    background: "linear-gradient(145deg, #111, #1c1c1c)",
+    border: "1px solid rgba(255,255,255,0.15)",
+    color: "#f5f5f5",
+    cursor: "pointer",
+    fontSize: "14px",
+    flexShrink: "0"
+});
+smollbutton.textContent = ">";
 
     smollbutton.addEventListener("click", async () => {
 
@@ -91,6 +144,9 @@ document.addEventListener('mouseup', (e) => {
     parsingsafely(htmlString);
     console.log("smoll button pressed");
     });
+
+
+
 
 
 // When button is clicked → show translation popup
