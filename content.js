@@ -70,29 +70,7 @@ document.addEventListener('mouseup', (e) => {
     }
 });
 
-
-    // const search = document.createElement('search');
-    // const form = document.createElement('form');
-    // const input = document.createElement('input');
-    // input.style.display = "inline-block";
-    // form.appendChild(input);
-    // search.appendChild(form);
-
-    // const wrapper = document.createElement("div");
-    // wrapper.style.display = "flex";
-    // wrapper.style.flexDirection = "row";
-    // const smollbutton = document.createElement("button");
-    // smollbutton.fontSize = "5px";
-    // smollbutton.textContent = ">"
-
-    // smollbutton.addEventListener("click", async () => {
-
-    // const htmlString = await tryfun(input.value);
-    // parsingsafely(htmlString);
-    // console.log("smoll button pressed");
-    // });
-
-    // Create the search container
+// Create the search container
 const search = document.createElement('search');
 
 const form = document.createElement('form');
@@ -138,12 +116,12 @@ Object.assign(smollbutton.style, {
 });
 smollbutton.textContent = ">";
 
-    smollbutton.addEventListener("click", async () => {
+smollbutton.addEventListener("click", async () => {
 
     const htmlString = await tryfun(input.value);
     parsingsafely(htmlString);
     console.log("smoll button pressed");
-    });
+});
 
 
 
@@ -174,9 +152,9 @@ button.addEventListener('click', async () => {
 });
 
 
-async function parsingsafely (htmlString) {
+async function parsingsafely(htmlString) {
 
-      // Parse the HTML safely
+    // Parse the HTML safely
     const parser = new DOMParser();
     const doc = parser.parseFromString(htmlString, 'text/html');
 
@@ -186,8 +164,8 @@ async function parsingsafely (htmlString) {
     }
 
     // wrapper.replaceChildren(search,smollbutton,container);
-    wrapper.replaceChildren(search,smollbutton);
-    popup.replaceChildren(wrapper,container);
+    wrapper.replaceChildren(search, smollbutton);
+    popup.replaceChildren(wrapper, container);
     shadow.appendChild(popup);
 
 }
