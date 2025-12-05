@@ -7,6 +7,20 @@ https://en.wiktionary.org/w/api.php?action=parse&page=Venice&prop=text&formatver
 // an actual api that returns a json with normal values 
 https://en.wiktionary.org/api/rest_v1/page/definition/fine
 
+
+// hierarchy should be like this:
+// 
+// host
+// └── shadowRoot
+//         ├── floatingBtn
+//         └── popup
+//             ├── search-bar
+//             │   ├── input
+//             │   └── smollBtn
+//             └── content
+//                 └── (parsed dictionary content)
+
+
 next step:
 v1:
 1. ~~find a way to correctly show the html ~~
