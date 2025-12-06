@@ -32,7 +32,7 @@ translation and it's content
 3. ~~ find a way to scroll ~~
 4. ~~find a way to make it stick (not go away) when interacting with it ~~ 
 5.~~ find a way when the translation happen and the translation popup appear the 'translate' button disapear ~~
-6. publish it and market it in different subreddits ([chrome-extensions](https://www.reddit.com/r/chrome_extensions/)), twitter communities, hacker news, product hunt, add0n.com/ etc 
+6.~~ publish it ~~and market it in different subreddits ([chrome-extensions](https://www.reddit.com/r/chrome_extensions/)), twitter communities, hacker news, product hunt, add0n.com/ etc 
 7. ~~fix the error of it working in some page while not-working on the others ~~
 8. ~~clean the code base~~
 9. ~~ change the error texts to something understandable other than: undefined, translation error, etc.~~
@@ -41,10 +41,13 @@ translation and it's content
 11. ~~ fix the stuck scroll-position between different popups~~
 12. fix when i want to translate a word at the edge of the website and the popup shows outside the boundry of the website
 13. ~~fix when the popup & button styling change due to the overiding it with the style of the page (solved by encapsulating both elements with a shadow-dom ) ~~
-14. add a way to reach the links returned by the html(ie when you search a a plural and it returns it's a plural of a singular ie when searching for republics it returns the following (plural of republic))
+14.~~ add a way to reach the links returned by the html(ie when you search a a plural and it returns it's a plural of a singular ie when searching for republics it returns the following (plural of republic))~~
 
 
 v2:
 1. beautifing it like the english dicitionary app so that it's easy to read
 2. make the theme change in accordance with the device theme
 3. consider publishing the extension in chrome
+4.~~ refactor the code so it lines with the hierarcical view above~~
+5. change the translate button to minimal search icon with the extension icon as background
+6.~~ add a an on-enter event to the search that when i press enter it triggers the smollbutton besides it~~
