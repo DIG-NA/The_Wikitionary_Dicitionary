@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "The wikitionary Dicitionary!",
-    "version": "1.0",
+    "version": "2.0",
     "description": "Select a word and instantly view it's Wikitionary definition in a floating popup.",
     "permissions": [
         "activeTab",
@@ -15,7 +15,7 @@
     "browser_specific_settings": {
         "gecko": {
             "id": "wikitionary-translator@example.com",
-            "strict_min_version": "109.0",
+            "strict_min_version": "140.0",
             "data_collection_permissions": {
                 "required": ["websiteContent"],
                 "websites": false,
