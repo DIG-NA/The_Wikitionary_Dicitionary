@@ -1,6 +1,6 @@
 // Create the floating "Translate" button
 const button = document.createElement('button');
-button.textContent = ' 🔍 | Search Word ';
+button.textContent = ' 🔍 | WD!';
 Object.assign(button.style, {
   position: 'absolute',
   display: 'none',
