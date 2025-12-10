@@ -31,7 +31,6 @@ Object.assign(popup.style, {
   background: 'linear-gradient(145deg, #111, #1c1c1c)',
   border: '1px solid rgba(255, 255, 255, 0.08)',
   transition: 'opacity 0.25s ease, transform 0.25s ease',
-  display: 'flex',
   flexDirection: 'column',
   boxSizing: 'border-box',
 });
@@ -176,3 +175,15 @@ async function parsingsafely(htmlString) {
   popup.replaceChildren(wrapper, container);
   shadow.appendChild(popup);
 }
+
+// function debugShowPopup(reason, popup) {
+//     console.log("%c[POPUP SHOWN] " + reason, "color: lime; font-weight: bold;");
+//     console.log("popup.innerHTML:", popup.innerHTML);
+// }
+
+
+new MutationObserver(() => {
+    if (popup.style.display === "block") {
+        debugShowPopup("MutationObserver detected visibility change", popup);
+    }
+}).observe(popup, { attributes: true, attributeFilter: ['style'] });
