@@ -49,5 +49,5 @@ v2:
 2. make the theme change in accordance with the device theme
 3. consider publishing the extension in chrome
 4.~~ refactor the code so it lines with the hierarcical view above~~
-5. change the translate button to minimal search icon with the extension icon as background
+5.~~ change the translate button to minimal search icon with the extension icon as background~~
 6.~~ add a an on-enter event to the search that when i press enter it triggers the smollbutton besides it~~
