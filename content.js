@@ -1,12 +1,11 @@
 // Create the floating "Translate" button
 const button = document.createElement('button');
-button.textContent = ' 🔍 | WD!';
 Object.assign(button.style, {
   position: 'absolute',
   display: 'none',
   zIndex: 9999,
-  padding: '10px 10px',
-  borderRadius: '6px',
+  padding: '8px 8px',
+  borderRadius: '8px',
   fontSize: '12.5px',
   cursor: 'pointer',
   color: '#f5f5f5',
@@ -16,6 +15,19 @@ Object.assign(button.style, {
   transform: "translateX(-50%)",
 });
 
+const svg = `
+<svg viewBox="0 0 24 24" width="18" height="18"
+     fill="none" stroke="currentColor" stroke-width="2"
+     xmlns="http://www.w3.org/2000/svg">
+  <circle cx="11" cy="11" r="7"/>
+  <line x1="16" y1="16" x2="22" y2="22"/>
+</svg>
+`;
+
+const Parser = new DOMParser();
+const doc = Parser.parseFromString(svg, "image/svg+xml");
+
+button.appendChild(doc.documentElement);
 document.body.appendChild(button);
 
 // Create the floating translation window
@@ -27,7 +39,7 @@ Object.assign(popup.style, {
   width: '500px',
   maxHeight: '400px',
   padding: '18px 22px',
-  borderRadius: '14px',
+  borderRadius: '8px',
   background: 'linear-gradient(145deg, #111, #1c1c1c)',
   border: '1px solid rgba(255, 255, 255, 0.08)',
   transition: 'opacity 0.25s ease, transform 0.25s ease',
@@ -49,9 +61,10 @@ document.addEventListener('mouseup', (e) => {
   if (!selection.isCollapsed) {
     const range = selection.getRangeAt(0);
     const rect = range.getBoundingClientRect();
+
     button.style.top = `${rect.top + window.scrollY - 40}px`;
-    // button.style.left = `${rect.right + window.scrollX}px`;
     button.style.left = `${rect.left + rect.width / 2 + window.scrollX}px`;
+
     shadow.appendChild(button);
     button.style.display = 'block';
     popup.style.display = 'none'; // Hide popup when reselecting
@@ -82,12 +95,12 @@ Object.assign(input.style, {
 form.appendChild(input);
 search.appendChild(form);
 
-input.addEventListener("keydown",async (e)=> {
+input.addEventListener("keydown", async (e) => {
   e.preventDefault;
   e.stopPropagation;
-  if (e.key==='Enter') {
+  if (e.key === 'Enter') {
     const htmlString = await tryfun(input.value);
-  parsingsafely(htmlString);
+    parsingsafely(htmlString);
   }
 });
 
@@ -100,7 +113,7 @@ Object.assign(wrapper.style, {
   gap: "8px",
   width: "100%",
   marginBottom: "15px",
-  boxSizing:'border-box',
+  boxSizing: 'border-box',
 });
 
 // Create the small button
@@ -153,7 +166,7 @@ button.addEventListener('click', async () => {
 
   popup.style.top = `${rect.bottom + window.scrollY + 5}px`;
   popup.style.left = `${rect.right + window.scrollX + 5}px`;
- 
+
   popup.style.display = 'flex';
   button.style.display = 'none';
   container.scrollTop = 0;
@@ -175,15 +188,3 @@ async function parsingsafely(htmlString) {
   popup.replaceChildren(wrapper, container);
   shadow.appendChild(popup);
 }
-
-// function debugShowPopup(reason, popup) {
-//     console.log("%c[POPUP SHOWN] " + reason, "color: lime; font-weight: bold;");
-//     console.log("popup.innerHTML:", popup.innerHTML);
-// }
-
-
-new MutationObserver(() => {
-    if (popup.style.display === "block") {
-        debugShowPopup("MutationObserver detected visibility change", popup);
-    }
-}).observe(popup, { attributes: true, attributeFilter: ['style'] });
