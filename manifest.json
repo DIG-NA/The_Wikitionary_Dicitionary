@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "The wikitionary Dicitionary!",
-    "version": "2.0",
+    "version": "2.1",
     "description": "Select a word and instantly view it's Wikitionary definition in a floating popup.",
     "permissions": [
         "activeTab",
