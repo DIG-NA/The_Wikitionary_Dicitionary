@@ -51,3 +51,32 @@ v2:
 4.~~ refactor the code so it lines with the hierarcical view above~~
 5.~~ change the translate button to minimal search icon with the extension icon as background~~
 6.~~ add a an on-enter event to the search that when i press enter it triggers the smollbutton besides it~~
+7. add the pronunciation actual sounds
+ how to:
+ get the pronunciation section which you need to get the section number of the pronunciation section before to get the actual pronunciation section
+
+getting section number
+https://en.wiktionary.org/w/api.php?action=parse&page=the&prop=sections&format=json
+
+getting the section
+https://en.wiktionary.org/w/api.php?action=parse&page=the&prop=text&section=0&format=json&origin=*
+
+ then just replace the pronunciation section with another pronunciation
+
+ or i can just get the audio filenames then get the audio the linking them correctly
+ https://en.wiktionary.org/w/api.php?action=query&format=json&prop=images&titles=the&imlimit=50
+
+
+ here is the solution:
+ call this to get filename
+ https://en.wiktionary.org/w/api.php?action=query&format=json&prop=images&titles=${word}&imlimit=50
+ then call this to get filename audio url
+ https://commons.wikimedia.org/w/api.php?action=query&titles=File:${filename}.ogg&prop=imageinfo&iiprop=url&format=json&origin=* 
+
+or get the pronunciation the same way the twp extension gets it like here:
+https://github.com/FilipePS/Traduzir-paginas-web/blob/44cb21c3af5e46ef9e0d905e8dface52bfab5c38/src/background/textToSpeech.js#L424
+
+also try the iframe solution in relation to the audio
+ 
+8. scrolling position doesn't return to the top when i search inside the popup(with the search or smollbtn) or on the extension popup, so fix it
+
