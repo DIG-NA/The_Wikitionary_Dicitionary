@@ -41,7 +41,7 @@ Object.assign(popup.style, {
   padding: '18px 22px',
   borderRadius: '8px',
   background: 'linear-gradient(145deg, #111, #1c1c1c)',
-  border: '1px solid rgba(255, 255, 255, 0.08)',
+  border: '1px solid rgba(255, 255, 255, 1)',
   transition: 'opacity 0.25s ease, transform 0.25s ease',
   flexDirection: 'column',
   boxSizing: 'border-box',
@@ -86,7 +86,7 @@ Object.assign(input.style, {
   padding: "6px 10px",
   borderRadius: "6px",
   border: "1px solid rgba(255,255,255,0.15)",
-  background: "#1a1a1a",
+  background: "linear-gradient(145deg, #111, #1c1c1c)",
   color: "white",
   flex: "1",
   boxSizing: 'border-box',
@@ -96,9 +96,10 @@ form.appendChild(input);
 search.appendChild(form);
 
 input.addEventListener("keydown", async (e) => {
-  e.preventDefault;
-  e.stopPropagation;
+
   if (e.key === 'Enter') {
+    // e.preventDefault();
+    // e.stopPropagation();
     const htmlString = await tryfun(input.value);
     parsingsafely(htmlString);
   }
@@ -128,12 +129,44 @@ Object.assign(smollbutton.style, {
   fontSize: "14px",
   flexShrink: "0"
 });
-smollbutton.textContent = ">";
+smollbutton.textContent = "↵";
 
 smollbutton.addEventListener("click", async () => {
   const htmlString = await tryfun(input.value);
   parsingsafely(htmlString);
-  console.log("smoll button pressed");
+  // console.log("smoll button pressed");
+});
+
+
+// Create the audio button
+const audiobtn = document.createElement("button");
+Object.assign(audiobtn.style, {
+  padding: "6px 10px",
+  borderRadius: "6px",
+  background: "linear-gradient(145deg, #111, #1c1c1c)",
+  border: "1px solid rgba(255,255,255,0.15)",
+  color: "#f5f5f5",
+  cursor: "pointer",
+  fontSize: "14px",
+  flexShrink: "0"
+});
+audiobtn.textContent = "▶︎ •၊၊||၊|။";
+
+
+audiobtn.addEventListener("click", async () => {
+  const selectedText = window.getSelection().toString().trim();
+  if (!selectedText) return;
+  
+  try {
+    browser.runtime.sendMessage({
+      action: "playTTS",
+      text: selectedText,
+      language: "en"
+    });
+  } catch (error) {
+    console.log(error);
+  }
+ 
 });
 
 const container = document.createElement('div');
@@ -151,17 +184,16 @@ Object.assign(container.style, {
   boxSizing: 'border-box',
 });
 
-// When button is clicked → show translation popup
-button.addEventListener('click', async () => {
-  const selectedText = window.getSelection().toString().trim();
+button.addEventListener('mousedown', async (e) => {
+  const selectedText = window.getSelection();
   if (!selectedText) return;
+  // console.log(selectedText.toString().trim());
 
-  const htmlString = await tryfun(selectedText);
+  const htmlString = await tryfun(selectedText.toString().trim());
   parsingsafely(htmlString);
 
   // position near the selected text
-  const selection = window.getSelection();
-  const range = selection.getRangeAt(0);
+  const range = selectedText.getRangeAt(0);
   const rect = range.getBoundingClientRect();
 
   popup.style.top = `${rect.bottom + window.scrollY + 5}px`;
@@ -171,7 +203,6 @@ button.addEventListener('click', async () => {
   button.style.display = 'none';
   container.scrollTop = 0;
 });
-
 
 async function parsingsafely(htmlString) {
 
@@ -184,7 +215,15 @@ async function parsingsafely(htmlString) {
     container.appendChild(node.cloneNode(true)); // safe clone
   }
 
-  wrapper.replaceChildren(search, smollbutton);
+  wrapper.replaceChildren(search, smollbutton, audiobtn);
   popup.replaceChildren(wrapper, container);
   shadow.appendChild(popup);
+
+  popup.style.display = 'flex';
+
+  container.scrollTop = 0;
+
 }
+
+
+
