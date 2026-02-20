@@ -152,22 +152,66 @@ Object.assign(audiobtn.style, {
 });
 audiobtn.textContent = "▶︎ •၊၊||၊|။";
 
-
 audiobtn.addEventListener("click", async () => {
-  const selectedText = window.getSelection().toString().trim();
-  if (!selectedText) return;
-  
   try {
     browser.runtime.sendMessage({
       action: "playTTS",
-      text: selectedText,
+      text: input.value,
       language: "en"
     });
   } catch (error) {
     console.log(error);
   }
- 
 });
+
+
+function addRippleEffect(button) {
+  button.addEventListener('click', function(e) {
+    // Create ripple element
+    const ripple = document.createElement('span');
+    
+    // Get click position relative to button
+    const rect = this.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    // Style the ripple
+    Object.assign(ripple.style, {
+      position: 'absolute',
+      left: x + 'px',
+      top: y + 'px',
+      width: '20px',
+      height: '20px',
+      borderRadius: '50%',
+      background: 'rgb(255, 255, 255)',
+      transform: 'translate(-50%, -50%) scale(0)',
+      pointerEvents: 'none',
+      transition: 'transform 0.6s ease-out, opacity 0.6s ease-out'
+    });
+    
+    // Make button relatively positioned
+    if (getComputedStyle(this).position === 'static') {
+      this.style.position = 'relative';
+    }
+    this.style.overflow = 'hidden';
+    
+    // Add to button
+    this.appendChild(ripple);
+    
+    // Trigger animation
+    requestAnimationFrame(() => {
+      ripple.style.transform = 'translate(-50%, -50%) scale(15)';
+      ripple.style.opacity = '0';
+    });
+    
+    // Remove after animation
+    setTimeout(() => ripple.remove(), 600);
+  });
+}
+
+addRippleEffect(button);
+addRippleEffect(audiobtn);
+addRippleEffect(smollbutton);
 
 const container = document.createElement('div');
 Object.assign(container.style, {
@@ -202,6 +246,8 @@ button.addEventListener('mousedown', async (e) => {
   popup.style.display = 'flex';
   button.style.display = 'none';
   container.scrollTop = 0;
+
+  input.value=selectedText;
 });
 
 async function parsingsafely(htmlString) {
@@ -224,6 +270,3 @@ async function parsingsafely(htmlString) {
   container.scrollTop = 0;
 
 }
-
-
-
