@@ -49,6 +49,14 @@ async function WikitionaryHtmlFn(text) {
       container.appendChild(node.cloneNode(true));
     }
 
+     // Hide empty elements with CSS
+  const style = document.createElement('style');
+  style.textContent = `
+    li:empty, dd:empty, dl:empty, p:empty, div:empty { display: none; }
+    ul:empty, ol:empty { display: none; }
+  `;
+  container.appendChild(style);
+
     // cleaning(container);
     return container.innerHTML;
 
