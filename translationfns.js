@@ -91,3 +91,49 @@ function findValueByKey(obj, keyToFind) {
     }
   }
 }
+
+
+
+function addRippleEffect(button) {
+  button.addEventListener('click', function(e) {
+    // Create ripple element
+    const ripple = document.createElement('span');
+    
+    // Get click position relative to button
+    const rect = this.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    // Style the ripple
+    Object.assign(ripple.style, {
+      position: 'absolute',
+      left: x + 'px',
+      top: y + 'px',
+      width: '20px',
+      height: '20px',
+      borderRadius: '50%',
+      background: 'rgb(255, 255, 255)',
+      transform: 'translate(-50%, -50%) scale(0)',
+      pointerEvents: 'none',
+      transition: 'transform 0.6s ease-out, opacity 0.6s ease-out'
+    });
+    
+    // Make button relatively positioned
+    if (getComputedStyle(this).position === 'static') {
+      this.style.position = 'relative';
+    }
+    this.style.overflow = 'hidden';
+    
+    // Add to button
+    this.appendChild(ripple);
+    
+    // Trigger animation
+    requestAnimationFrame(() => {
+      ripple.style.transform = 'translate(-50%, -50%) scale(15)';
+      ripple.style.opacity = '0';
+    });
+    
+    // Remove after animation
+    setTimeout(() => ripple.remove(), 600);
+  });
+}
