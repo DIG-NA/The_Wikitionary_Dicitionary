@@ -1,22 +1,47 @@
 
 
+// async function tryfun(selectedText) {
+
+//   let result = await WikitionaryHtmlFn(selectedText);
+//    console.log('Result:', result, 'Type:', typeof result);
+
+//   if (result == "undefined") {
+
+//     const textLowerCase = selectedText.toLowerCase();
+//     result = await WikitionaryHtmlFn(textLowerCase);
+  
+//     if (result == "undefined") {
+//     const textUpperCase = selectedText.charAt(0).toUpperCase() + selectedText.slice(1);
+//     result = await WikitionaryHtmlFn(textUpperCase);
+//     }
+
+//     if (result == "undefined") {
+//       result = "no such entry in Wikitionary.";
+//     }
+//   }
+
+//   // console.log(result);
+//   return result;
+// }
+
+
 async function tryfun(selectedText) {
-
-  // first try calling wikifn using lowercase text
-  let result = await WikitionaryHtmlFn(selectedText.toLowerCase());
-
-  // if it doesn't work try the first letter capitalized text
-  if (result == "undefined") {
-    const textUpperCase = selectedText.charAt(0).toUpperCase() + selectedText.slice(1);
-    result = await WikitionaryHtmlFn(textUpperCase);
-
-    if (result == "undefined") {
-      result = "no such entry in Wikitionary.";
-    }
-  }
-
-  // console.log(result);
-  return result;
+  // Try original text
+  let result = await WikitionaryHtmlFn(selectedText);
+  if (result) return result;  // ✅ Exit immediately if found
+  
+  // Try lowercase
+  const textLowerCase = selectedText.toLowerCase();
+  result = await WikitionaryHtmlFn(textLowerCase);
+  if (result) return result;  // ✅ Exit immediately if found
+  
+  // Try capitalized
+  const textUpperCase = selectedText.charAt(0).toUpperCase() + selectedText.slice(1);
+  result = await WikitionaryHtmlFn(textUpperCase);
+  if (result) return result;  // ✅ Exit immediately if found
+  
+  // Nothing worked
+  return "no such entry in Wiktionary.";
 }
 
 
@@ -33,6 +58,11 @@ async function WikitionaryHtmlFn(text) {
     const extract = findValueByKey(data, "extract");
 
     // console.log(extract);
+
+    // ✅ ADD THIS CHECK - reject undefined/null/empty before parsing
+    if (!extract || extract === undefined || extract === "undefined") {
+      return null;
+    }
 
     // input.value = findValueByKey(data,"title") ;
 
@@ -91,7 +121,6 @@ function findValueByKey(obj, keyToFind) {
     }
   }
 }
-
 
 
 function addRippleEffect(button) {
