@@ -25,9 +25,9 @@ const svg = `
 `;
 
 const Parser = new DOMParser();
-const doc = Parser.parseFromString(svg, "image/svg+xml");
+const svgdoc = Parser.parseFromString(svg, "image/svg+xml");
 
-button.appendChild(doc.documentElement);
+button.appendChild(svgdoc.documentElement);
 document.body.appendChild(button);
 
 // Create the floating translation window
@@ -101,7 +101,9 @@ input.addEventListener("keydown", async (e) => {
     // e.preventDefault();
     // e.stopPropagation();
     const htmlString = await tryfun(input.value);
-    parsingsafely(htmlString);
+    // parsingsafely(htmlString);
+    anotherfun(htmlString);
+    // container.scrollTop = 0;
   }
 });
 
@@ -133,8 +135,9 @@ smollbutton.textContent = "↵";
 
 smollbutton.addEventListener("click", async () => {
   const htmlString = await tryfun(input.value);
-  parsingsafely(htmlString);
-  // console.log("smoll button pressed");
+  // parsingsafely(htmlString);
+  anotherfun(htmlString);
+
 });
 
 
@@ -163,51 +166,6 @@ audiobtn.addEventListener("click", async () => {
     console.log(error);
   }
 });
-
-
-function addRippleEffect(button) {
-  button.addEventListener('click', function(e) {
-    // Create ripple element
-    const ripple = document.createElement('span');
-    
-    // Get click position relative to button
-    const rect = this.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    
-    // Style the ripple
-    Object.assign(ripple.style, {
-      position: 'absolute',
-      left: x + 'px',
-      top: y + 'px',
-      width: '20px',
-      height: '20px',
-      borderRadius: '50%',
-      background: 'rgb(255, 255, 255)',
-      transform: 'translate(-50%, -50%) scale(0)',
-      pointerEvents: 'none',
-      transition: 'transform 0.6s ease-out, opacity 0.6s ease-out'
-    });
-    
-    // Make button relatively positioned
-    if (getComputedStyle(this).position === 'static') {
-      this.style.position = 'relative';
-    }
-    this.style.overflow = 'hidden';
-    
-    // Add to button
-    this.appendChild(ripple);
-    
-    // Trigger animation
-    requestAnimationFrame(() => {
-      ripple.style.transform = 'translate(-50%, -50%) scale(15)';
-      ripple.style.opacity = '0';
-    });
-    
-    // Remove after animation
-    setTimeout(() => ripple.remove(), 600);
-  });
-}
 
 addRippleEffect(button);
 addRippleEffect(audiobtn);
@@ -253,8 +211,7 @@ button.addEventListener('mousedown', async (e) => {
 async function parsingsafely(htmlString) {
 
   // Parse the HTML safely
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(htmlString, 'text/html');
+  const doc = Parser.parseFromString(htmlString, 'text/html');
 
   container.replaceChildren();
   for (const node of doc.body.childNodes) {
@@ -265,8 +222,17 @@ async function parsingsafely(htmlString) {
   popup.replaceChildren(wrapper, container);
   shadow.appendChild(popup);
 
-  popup.style.display = 'flex';
+}
 
+
+function anotherfun(htmlString) {
+
+  // Parse the HTML safely
+  const doc = Parser.parseFromString(htmlString, 'text/html');
+
+  container.replaceChildren();
+  for (const node of doc.body.childNodes) {
+    container.appendChild(node.cloneNode(true)); // safe clone
+  }
   container.scrollTop = 0;
-
 }
