@@ -24,7 +24,7 @@ https://en.wiktionary.org/api/rest_v1/page/definition/fine
 next step:
 v1:
 1. ~~find a way to correctly show the html ~~
-2. find a way to delete selected entries in the html like translation etc
+2. find a way to delete selected entries in the html like translation etc-------no
 ex: 
 pronunciation and it's content
 translation and it's content
@@ -46,12 +46,12 @@ translation and it's content
 
 v2:
 1. beautifing it like the english dicitionary app so that it's easy to read
-2. make the theme change in accordance with the device theme
+2. make the theme change in accordance with the device theme ---- noooooo
 3. consider publishing the extension in chrome
 4.~~ refactor the code so it lines with the hierarcical view above~~
 5.~~ change the translate button to minimal search icon with the extension icon as background~~
 6.~~ add a an on-enter event to the search that when i press enter it triggers the smollbutton besides it~~
-7. add the pronunciation actual sounds
+7. ~~add the pronunciation actual sounds~~
  how to:
  get the pronunciation section which you need to get the section number of the pronunciation section before to get the actual pronunciation section
 
@@ -78,5 +78,5 @@ https://github.com/FilipePS/Traduzir-paginas-web/blob/44cb21c3af5e46ef9e0d905e8d
 
 also try the iframe solution in relation to the audio
  
-8. scrolling position doesn't return to the top when i search inside the popup(with the search or smollbtn) or on the extension popup, so fix it
+8. ~~scrolling position doesn't return to the top when i search inside the popup(with the search or smollbtn) or on the extension popup, so fix it~~
 
