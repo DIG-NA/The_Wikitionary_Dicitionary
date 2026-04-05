@@ -1,17 +1,13 @@
-const content= document.getElementById("content");
+const content = document.getElementById("content");
 
 document.getElementById("btn").addEventListener("click", async () => {
   const word = document.getElementById("input").value.trim();
   if (!word) return;
 
   const htmlString = await tryfun(word);
-  // console.log(htmlString);
+  parsing(htmlString);
 
-  document.getElementById("content").innerHTML =
-    htmlString;
-
-    // const content= document.getElementById("content");
-     content.scrollTop = 0;
+  content.scrollTop = 0;
 });
 
 
@@ -22,18 +18,26 @@ document.getElementById("input").addEventListener("keydown", async (e) => {
 
     const input = document.getElementById("input");
     const word = input.value.trim();
-
     if (!word) return;
 
     const htmlString = await tryfun(word);
+    parsing(htmlString);
 
-    document.getElementById("content").innerHTML =
-      htmlString;
-
-    // const content= document.getElementById("content");
     content.scrollTop = 0;
   }
 })
+
+function parsing(htmlString) {
+  const Parser = new DOMParser();
+
+  // Parse the HTML safely
+  const doc = Parser.parseFromString(htmlString, 'text/html');
+
+  content.replaceChildren();
+  for (const node of doc.body.childNodes) {
+    content.appendChild(node.cloneNode(true)); // safe clone
+  }
+}
 
 document.getElementById("audiobtn").addEventListener("click", () => {
   try {
